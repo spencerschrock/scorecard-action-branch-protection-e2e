@@ -23,7 +23,7 @@ jobs:
       max-parallel: 1
       fail-fast: false
       matrix:
-        results_format: [sarif, json, default]
+        results_format: [sarif, json]
         publish_results: [false, true]
         token: [GITHUB_TOKEN]
         include:
@@ -40,7 +40,7 @@ jobs:
           persist-credentials: false
       - name: "Run Scorecard analysis"
         id: scorecard-run
-        uses: ossf/scorecard-action@main
+        uses: ossf/scorecard-action@v2.0.0
         with:
           results_file: results.${{ matrix.results_format }}
           results_format: ${{ matrix.results_format }}
