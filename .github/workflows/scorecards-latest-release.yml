@@ -40,7 +40,7 @@ jobs:
           persist-credentials: false
       - name: "Run Scorecard analysis"
         id: scorecard-run
-        uses: ossf/scorecard-action@v2.0.0
+        uses: ossf/scorecard-action@v2.0.3
         with:
           results_file: results.${{ matrix.results_format }}
           results_format: ${{ matrix.results_format }}
