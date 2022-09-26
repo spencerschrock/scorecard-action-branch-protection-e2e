@@ -25,7 +25,7 @@ jobs:
       matrix:
         results_format: [sarif, json, default]
         publish_results: [false, true]
-        token: [GITHUB_TOKEN]
+        token: [GITHUB_TOKEN, SCORECARD_TOKEN]
         include:
           - results_format: sarif
             upload_result: true
@@ -40,7 +40,7 @@ jobs:
           persist-credentials: false
       - name: "Run analysis"
         id: scorecard-run
-        uses: docker://gcr.io/openssf/scorecard-action:test
+        uses: docker://gcr.io/openssf/scorecard-action:latest
         with:
           entrypoint: "/scorecard-action"
           results_file: results.${{ matrix.results_format }}
@@ -77,7 +77,7 @@ jobs:
       - name: "Report Scorecard run failure"
         uses: actions-ecosystem/action-create-issue@b02a3c1d9d929a5839315bd255e40389f0dab627 #v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.SCORECARD_TOKEN }}
           title: "Failing e2e tests - scorecard-head on ${{ github.repository }}"
           body: |
             Matrix: ${{ toJSON(matrix) }}
